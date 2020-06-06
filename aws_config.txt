@@ -1,0 +1,35 @@
+<-------------- cau hinh ten mien tren webserver apache --------------------------->
+vi /etc/httpd/conf/httpd.conf/
+NameVirtualHost *:80
+<VirtualHost *:80>
+    ServerAdmin info@coderhanoi.com
+    DocumentRoot /var/www/html/tinhocthatladongian
+    ServerName tinhocthatladongian.coderhanoi.com
+    <Directory "/var/www/html/tinhocthatladongian">      
+   Order deny,allow
+           Allow from all
+           AllowOverride All
+          Require all granted
+   </Directory>
+</VirtualHost>
+<!----------------------- endblock apache ---------------------------->
+
+<--------------------------- https SSH conf apache server ------------------------>
+vi /etc/httpd/conf.d/ssl.conf/
+<VirtualHost _default_:443>
+    SSLEngine On
+    ServerAdmin info@coderhanoi.com
+    DocumentRoot "/var/www/html/tinhocthatladongian/"
+    ServerName coderhanoi.com
+    SSLCertificateFile "/etc/httpd/conf/tinhocthatladongian-ssl/certificate.crt"
+    SSLCertificateChainFile "/etc/httpd/conf/tinhocthatladongian-ssl/ca_bundle.crt"
+    SSLCertificateKeyFile "/etc/httpd/conf/tinhocthatladongian-ssl/server.key"
+    {Directory "/var/www/html/tinhocthatladongian/"}        
+ Order deny,allow        
+ Allow from all        
+ AllowOverride All        
+ Require all granted
+   {/Directory}
+</VirtualHost>
+
+<!---------------------- endblock SSH APACHE -------------------->
